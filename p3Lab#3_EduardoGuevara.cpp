@@ -35,6 +35,9 @@ int main(){
 	int tam = 0;
 	int* numeros;
 	int par;
+	int* temp;
+	int size;
+	int vueltas;
 	while (salir != 4){
 		switch(salir = menu()){
 			case 1:
@@ -58,20 +61,23 @@ int main(){
 					}
 				}else{
 					if((tam+1)%5 == 0){
-						int* temp = new int[tam+1];
+						temp = new int[tam+1];
 						temp[0] = 0;
+						size = tam+1;
 						for(int i = 1; i < tam+1; i++){
 							temp[i] = numeros[i-1];
 						}
 					}else if((tam+2)%5 == 0){
-						int* temp = new int[tam+2];
+						size = tam+2;
+						temp = new int[tam+2];
 						temp[0] = 0;
 						temp[1] = 0;
 						for (int i = 2; i < tam+2; i++){
 							temp[i] = numeros[i-2];
 						}
 					}else if((tam+3)%5 == 0){
-						int* temp =new int[tam+3];
+						size = tam+3;
+						temp =new int[tam+3];
 						temp[0] = 0;
 						temp[1] = 0;
 						temp[2] = 0;
@@ -79,7 +85,8 @@ int main(){
 							temp[i] = numeros[i-3];
 						}
 					}else if((tam+4)%5 == 0){
-						int* temp = new int[tam+4];
+						size = tam+4;
+						temp = new int[tam+4];
 						temp[0] = 0;
 						temp[1] = 0;
 						temp[2] = 0;
@@ -87,22 +94,35 @@ int main(){
 						for (int i = 4; i < tam+4; i++){
 							temp[i] = numeros[i-4];
 						}
+					}else{
+						size = tam;
+						temp = new int[tam];
+						for(int i = 0; i < tam; i++){
+							temp[i] = numeros[i];
+						}
 					}
-					int vueltas = tam/5;
+					printInt(size,temp);
+					vueltas = size/5;
 					int cont = 0;
-					int pos =0;
+					int pos = 0;
 					int* medianas = new int[vueltas];
 					for (int j = 0; j < vueltas; j++){
 						for (int h = 0; h < 5; h++){
-							medianas[pos] = numero[cont+2];
+							medianas[pos] = temp[cont+2];
 							cont+=5;
+							pos++;
 						}
+					}
+					for(int c = 0; c<vueltas;c++){
+						cout<<medianas[c]<<endl;
 					}
 					if(vueltas%2 == 0){
 						par = vueltas/2;
 						cout<<"La mediana es: "<<medianas[par]<<endl;
 					}else{
+						cout<<vueltas;
 						par = ((vueltas+1)/2)+1;
+						cout<<par;
 						cout<<"La mediana es: "<<medianas[par]<<endl;
 					}
 					
