@@ -120,8 +120,7 @@ int main(){
 						par = vueltas/2;
 						cout<<"La mediana es: "<<medianas[par]<<endl;
 					}else{
-						cout<<vueltas;
-						par = ((vueltas+1)/2)+1;
+						par = ((vueltas+1)/2)-1;
 						cout<<par;
 						cout<<"La mediana es: "<<medianas[par]<<endl;
 					}
