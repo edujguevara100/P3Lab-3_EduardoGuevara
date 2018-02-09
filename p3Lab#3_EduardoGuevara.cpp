@@ -1,29 +1,113 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <time.h>
 using namespace std;
 //Primer ejercicio
-//int* medianaDmedianas(int*);
+//string medianaDmedianas(int*,int);
+//Menu para tercer ejercicio
+int menu2();
 //Segundo ejercicio
 void permutaciones(string, string*&);
 //Tercer ejercicio
 //string* fechas(string);
 //Menu
 int menu();
+//Menu para el tipo de listado
+int menu3();
 //Ordenamiento de Permutaciones
 void ordenar(string*&);
 //Imprmir
 void print(string*);
 //Liberar arrays
 void cleararray(string*&);
+//LLenar arreglo 
+void fill(int, int*&);
+//Arreglar mediana
+void orden(int*&, int);
+//Imprimir enteros
+void printInt(int, int*);
 
 int main(){
 	int salir = 0;
 	string numero;
+	string universo;
+	int tam = 0;
+	int* numeros;
+	int par;
 	while (salir != 4){
 		switch(salir = menu()){
-			//case 1:
-			//	break;
+			case 1:
+				cout<<"Ingrese el size del conjunto S:"<<endl;
+				cin>>tam;
+				numeros = new int[tam];
+				fill(tam,numeros);
+				cout<<endl;
+				//printInt(tam,numeros);
+				//cout<<endl;
+				//cout<<endl;
+				orden(numeros, tam);
+				printInt(tam,numeros);
+				if (tam <= 5 && tam > 0){
+					if (tam%2 == 0){
+						par = tam/2;
+						cout<<"La mediana es: "<<numeros[par]<<endl;
+					}else{
+						par = ((tam+1)/2)-1;
+						cout<<"La mediana es: "<<numeros[par]<<endl;
+					}
+				}else{
+					if((tam+1)%5 == 0){
+						int* temp = new int[tam+1];
+						temp[0] = 0;
+						for(int i = 1; i < tam+1; i++){
+							temp[i] = numeros[i-1];
+						}
+					}else if((tam+2)%5 == 0){
+						int* temp = new int[tam+2];
+						temp[0] = 0;
+						temp[1] = 0;
+						for (int i = 2; i < tam+2; i++){
+							temp[i] = numeros[i-2];
+						}
+					}else if((tam+3)%5 == 0){
+						int* temp =new int[tam+3];
+						temp[0] = 0;
+						temp[1] = 0;
+						temp[2] = 0;
+						for (int i = 3; i < tam+3; i++){
+							temp[i] = numeros[i-3];
+						}
+					}else if((tam+4)%5 == 0){
+						int* temp = new int[tam+4];
+						temp[0] = 0;
+						temp[1] = 0;
+						temp[2] = 0;
+						temp[3] = 0;
+						for (int i = 4; i < tam+4; i++){
+							temp[i] = numeros[i-4];
+						}
+					}
+					int vueltas = tam/5;
+					int cont = 0;
+					int pos =0;
+					int* medianas = new int[vueltas];
+					for (int j = 0; j < vueltas; j++){
+						for (int h = 0; h < 5; h++){
+							medianas[pos] = numero[cont+2];
+							cont+=5;
+						}
+					}
+					if(vueltas%2 == 0){
+						par = vueltas/2;
+						cout<<"La mediana es: "<<medianas[par]<<endl;
+					}else{
+						par = ((vueltas+1)/2)+1;
+						cout<<"La mediana es: "<<medianas[par]<<endl;
+					}
+					
+				}
+				break;
 			case 2:
 				cout<<"Ingrese un numero con maximo 4 digitos:"<<endl;
 				cin>>numero;
@@ -33,12 +117,32 @@ int main(){
 					string* array;
 					array = new string[12];
 					permutaciones(numero, array);
+					cout<<endl;
 					print(array);
-					//cleararray(array);
+					cleararray(array);
 				}
 				break;
 				
 			case 3:
+				string fecha;
+				cout<<"Ingrese una fecha"<<endl;
+				cin>>fecha;
+				switch(menu2()){
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						switch(menu3()){
+							case 1:
+								break;
+							case 2:
+								break;
+							case 3:
+								break;
+						}
+						break;
+				}
 				break;
 		}	
 	}
@@ -54,6 +158,7 @@ int menu(){
 	cin>>op;
 	return op;
 }
+
 
 void permutaciones(string num, string*& array){
 	string num1,num2,num3,num4;
@@ -100,9 +205,55 @@ void print(string* array){
 	}
 }
 
+void printInt(int size, int* array){
+	for (int i = 0; i < size; i++){
+		cout<<array[i]<<endl;
+	}
+	cout<<endl;
+}
+
 void cleararray(string*& array){
 	delete[] array;
 	array=NULL;
 
 }
 
+void fill(int size, int*& array){
+	srand(time(NULL));
+	for (int i = 0; i < size; i++){
+		array[i] = rand() % 100 + 1;
+	}
+}
+
+void orden(int*& numeros, int size){
+	int temp = 0;
+	for (int i = 1; i < size; i++){
+		for (int j = 0; j < size-1; j++){
+			if(numeros[j] > numeros[j+1]){
+				temp = numeros[j];
+				numeros[j] = numeros[j+1];
+				numeros[j+1] = temp;
+			}
+		}	
+	}
+}
+
+int menu2(){
+	int op;
+	cout<<"1: Listar Todo"<<endl
+		<<"2: Listar Ordenado"<<endl
+		<<"3: Listar por consulta"<<endl
+		<<"4: Volver"<<endl;
+	cin>>op;
+	return op;
+}
+
+int menu3(){
+	int op;
+	cout<<"1: Listar fechas por Mes especifico"<<endl
+		<<"2: Listar fechas por Ano especifico"<<endl
+		<<"3: Listar fechas de acuerdo a Dia"<<endl
+		<<"4: Salir"<<endl;
+	cin>>op;
+	return op;
+}
